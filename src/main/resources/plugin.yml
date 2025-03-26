@@ -1,5 +1,18 @@
 name: AmongUs
-version: '${version}'
+version: "${version}"
 main: com.spectrasonic.AmongUs.Main
-api-version: '1.21'
+api-version: "1.21"
 authors: [Spectrasonic]
+depend: [Citizens]
+commands:
+    amongus:
+        description: Comandos principales del plugin AmongUs
+        aliases: [au]
+        permission: amongus.use
+permissions:
+    amongus.use:
+        description: Permiso para usar comandos básicos
+        default: op
+    amongus.admin:
+        description: Permiso para comandos administrativos
+        default: op

@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "gradle",
+            "id": "/Users/spectra/Desktop/AmongUsbuildAmongUs",
+            "script": "build",
+            "description": "Assembles and tests this project.",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "project": "AmongUs",
+            "buildFile": "/Users/spectra/Desktop/AmongUs/build.gradle",
+            "rootProject": "AmongUs",
+            "projectFolder": "/Users/spectra/Desktop/AmongUs",
+            "workspaceFolder": "/Users/spectra/Desktop/AmongUs",
+            "args": "",
+            "javaDebug": false,
+            "problemMatcher": [
+                "$gradle"
+            ],
+            "label": "gradle: build"
+        }
+    ]
+}

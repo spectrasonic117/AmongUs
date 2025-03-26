@@ -22,6 +22,10 @@ repositories {
         name = "aikar"
         url = "https://repo.aikar.co/content/groups/aikar/"
     }
+    maven {
+        name = 'citizens-repo'
+        url = 'https://maven.citizensnpcs.co/repo'
+    }
 }
 
 dependencies {
@@ -43,6 +47,10 @@ dependencies {
 
     // Paperweight
     // paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT")
+
+    compileOnly('net.citizensnpcs:citizens-main:2.0.35-SNAPSHOT') {
+        exclude group: '*', module: '*'
+    }
 }
 
 shadowJar {
