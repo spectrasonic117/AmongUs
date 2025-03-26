@@ -1,0 +1,5 @@
+name: AmongUs
+version: '${version}'
+main: com.spectrasonic.AmongUs.Main
+api-version: '1.21'
+authors: [Spectrasonic]
