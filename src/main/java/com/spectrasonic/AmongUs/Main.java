@@ -4,11 +4,13 @@ package com.spectrasonic.AmongUs;
 import co.aikar.commands.PaperCommandManager;
 import com.spectrasonic.AmongUs.Commands.Commands;
 import com.spectrasonic.AmongUs.Utils.MessageUtils;
+import com.spectrasonic.AmongUs.Utils.PointsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
 
     private PaperCommandManager commandManager;
+    private PointsManager pointsManager;
 
     @Override
     public void onEnable() {
@@ -16,6 +18,7 @@ public final class Main extends JavaPlugin {
         registerCommands();
         registerEvents();
         MessageUtils.sendStartupMessage(this);
+        pointsManager = new PointsManager(this);
     }
 
     @Override
@@ -30,5 +33,9 @@ public final class Main extends JavaPlugin {
 
     public void registerEvents() {
         // Eventos si son necesarios
+    }
+
+    public PointsManager getPointsManager() {
+        return pointsManager;
     }
 }

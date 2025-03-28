@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.spectrasonic"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     gradlePluginPortal()
@@ -25,6 +25,9 @@ repositories {
     maven {
         name = 'citizens-repo'
         url = 'https://maven.citizensnpcs.co/repo'
+    }
+    maven {
+	    url ="https://repo.extendedclip.com/content/repositories/placeholderapi/"
     }
 }
 
@@ -51,13 +54,15 @@ dependencies {
     compileOnly('net.citizensnpcs:citizens-main:2.0.35-SNAPSHOT') {
         exclude group: '*', module: '*'
     }
+
+    compileOnly "me.clip:placeholderapi:2.11.6"
 }
 
 shadowJar {
     relocate "co.aikar.commands", "com.spectrasonic.AmongUs.acf"
     relocate "co.aikar.locales", "com.spectrasonic.AmongUs.locales"
     destinationDirectory = file("${rootDir}/out")
-    archiveFileName = "${rootProject.name}-${version}.jar" 
+    archiveFileName = "Spectra-${rootProject.name}-${version}.jar" 
 }
 
 build.dependsOn shadowJar

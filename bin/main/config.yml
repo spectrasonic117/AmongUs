@@ -1,0 +1,11 @@
+spawn_loc:
+    world: "world"
+    pos1: { x: -126, y: 74, z: -950 }
+    pos2: { x: -66, y: 74, z: -892 }
+
+npc_spawns: 10
+
+impostor_spawn: 1
+
+impostor_names:
+    - JaziIsai

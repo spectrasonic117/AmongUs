@@ -1,15 +1,16 @@
 // GameManager.java actualizado
 package com.spectrasonic.AmongUs.Managers;
 
+import com.spectrasonic.AmongUs.Main;
 import com.spectrasonic.AmongUs.Traits.ImpostorTrait;
 import com.spectrasonic.AmongUs.Utils.MessageUtils;
 import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.command.CommandSender;
 import org.bukkit.World;
@@ -19,17 +20,18 @@ import java.util.List;
 import java.util.Random;
 
 public final class GameManager {
-    private final JavaPlugin plugin;
+
+    private final Main plugin;
     private final NPCRegistry npcRegistry;
     private final List<NPC> activeNPCs = new ArrayList<>();
     private final List<NPC> impostorNPCs = new ArrayList<>();
     private boolean gameRunning = false;
     private final Random random = new Random();
 
-    public GameManager(JavaPlugin plugin) {
+    public GameManager(Main plugin) {
         this.plugin = plugin;
         this.npcRegistry = CitizensAPI.getNPCRegistry();
-        CitizensAPI.getTraitFactory().registerTrait(net.citizensnpcs.api.trait.TraitInfo.create(ImpostorTrait.class));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(ImpostorTrait.class));
     }
 
     public void startGame(CommandSender sender) {
@@ -37,6 +39,15 @@ public final class GameManager {
             MessageUtils.sendMessage(sender, "<red>El juego ya está en ejecución!</red>");
             return;
         }
+
+        // Reset scoring for all impostors
+        impostorNPCs.forEach(npc -> {
+            ImpostorTrait trait = npc.getTrait(ImpostorTrait.class);
+            if (trait != null) {
+                trait.resetScoring();
+                trait.setPointsManager(plugin.getPointsManager());
+            }
+        });
 
         FileConfiguration config = plugin.getConfig();
         int npcCount = config.getInt("npc_spawns", 10);
@@ -84,7 +95,9 @@ public final class GameManager {
             Location spawnLoc = getRandomLocation(pos1, pos2);
             NPC impostor = npcRegistry.createNPC(EntityType.PLAYER, impostorNames.get(i));
             impostor.spawn(spawnLoc);
-            impostor.addTrait(new ImpostorTrait());
+            ImpostorTrait trait = new ImpostorTrait();
+            trait.setPointsManager(plugin.getPointsManager()); // Set the PointsManager here
+            impostor.addTrait(trait);
             activeNPCs.add(impostor);
             impostorNPCs.add(impostor);
         }
